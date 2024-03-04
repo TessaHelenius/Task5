@@ -1,0 +1,55 @@
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  line-height: 1.6;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #009688;
+  color: #ffffff;
+  font-weight: normal;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+  cursor: pointer;
+}
+
+a {
+  color: #009688;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/*Tähän halusin harjoitella tätä responsiivista designia, ja ymmärsin että näitä tyylejä sovelletaan vain silloin kun
+kyseisen näytön leveys on enintään 600 pikseliä, eli vaikka puhelin tai tabletti tms. En tätä päässyt nyt kokeilemaan
+käytännössä mutta halusin vähän harjoitella tämänkin käyttöä */
+@media screen and (max-width: 600px) {
+  table {
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+  }
+}

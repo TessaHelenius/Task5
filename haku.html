@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Merkistö, responsiivisuus ja jQuery script "tagi" -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puhelinluettelo - Haku</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Sivun otsikko -->
+    <h1>Hae Puhelinnumero</h1>
+    <!-- Lomake, jossa kaksi tekstikenttää ja nappi -->
+    <form id="form" name="form">
+      <label>Syötä nimi:</label>
+      <input
+        name="nimi"
+        id="nimi"
+        type="text"
+        value=""
+        maxlength="35"
+        size="35"
+      />
+      <input name="submit" type="button" value="Hae puhelinnumero" />
+
+      <label>Puhelinnumero:</label>
+      <input
+        name="puhelin"
+        id="puhelin"
+        type="text"
+        value=""
+        maxlength="35"
+        size="35"
+        disabled
+      />
+    </form>
+    <!-- Linkki takaisin pääsivulle -->
+    <a href="index.html">Takaisin pääsivulle</a>
+
+    <script>
+      // Kun dokumentti on valmis, suoritetaan funktio
+      $(document).ready(function () {
+        $('[name="submit"]').click(function () {
+          // Haetaan käyttäjän syöttämä nimi
+          var nimi = $("#nimi").val();
+          // Haetaan data JSON-tiedostosta
+          $.getJSON(
+            "http://a41d.k.time4vps.cloud:3001/henkilot",
+            function (data) {
+              // Etsitään hakua vastaava henkilö
+              var found = data.find(
+                (person) => person.nimi.toLowerCase() === nimi.toLowerCase()
+              );
+              // Jos henkilö löytyy, näytetään puhelinnumero
+              if (found) {
+                $("#puhelin").val(found.puhelin);
+              } else {
+                // Jos henkilöä ei löydy, näytetään viesti
+                $("#puhelin").val(
+                  "Numeroa ei löydy, tarkista kirjoittamasi nimi"
+                );
+              }
+            }
+          );
+        });
+      });
+    </script>
+  </body>
+</html>

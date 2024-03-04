@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Puhelinluettelo - Kaikki Henkilöt</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Otsikkotieto ja tyhjä taulukko johon tulee alkiot myöhemmin, sekä linkki takaisin pääsivulle -->
+    <h1>Kaikki Henkilöt</h1>
+    <table id="luettelo"></table>
+    <a href="index.html">Takaisin pääsivulle</a>
+
+    <script>
+      // Tässä käytetään jQuerya "odottamaan" että HTML sivu on latautunut, jonka jälkeen suoritetaan funktio
+      $(document).ready(function () {
+        //haetaan data JSON tiedostosta
+        $.getJSON(
+          "http://a41d.k.time4vps.cloud:3001/henkilot",
+          function (data) {
+            var table = "<tr><th>Nimi</th><th>Puhelinnumero</th></tr>";
+            // Käydään läpi JSON tiedoston data ja lisätään ne taulukkoon
+            $.each(data, function (key, value) {
+              table +=
+                "<tr><td>" +
+                value.nimi +
+                "</td><td>" +
+                value.puhelin +
+                "</td></tr>";
+            });
+            //Lisätään taulukko HTML elementtiin
+            $("#luettelo").html(table);
+          }
+        );
+      });
+    </script>
+  </body>
+</html>
